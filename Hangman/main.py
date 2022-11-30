@@ -12,7 +12,7 @@ def get_valid_word(words):
 
 word = get_valid_word(words)
 wordLeters = set(list(word))
-foundLeters = []
+foundLeters = set()
 
 
 def search_in_word(guess):
@@ -30,6 +30,7 @@ def print_found_leters():
 
     foundWord = [" " + letter + " " if letter in foundLeters else " _ " for letter in word]
 
+    print("-------------")
     print(' '.join(foundWord))
 
 
@@ -37,17 +38,16 @@ def hangman():
     global wordLeters, foundLeters
     lives = 6
 
-    print(lives)
     print(" _ " * len(wordLeters))
 
     while lives > 0 and len(foundLeters) < len(wordLeters):
         print(f"You have {lives} lives") # [f] Put variables in the string
-        guess = get_leter()
+        guess = get_leter(foundLeters)
 
         if search_in_word(guess) == False:
             lives -= 1
         else:
-            foundLeters.append(guess)
+            foundLeters.add(guess)
             print_found_leters()
 
     if lives > 0:
